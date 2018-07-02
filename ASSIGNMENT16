@@ -1,0 +1,152 @@
+#QUES1
+
+import sqlite3
+
+conn = sqlite3.connect('hello0.db')
+print("opened database successfully")
+conn.execute('''Create Table Book
+             (BookID INT PRIMARY KEY   NOT NULL,
+             TITLEID INT             NOT NULL,
+             LOCATION VARCHAR        NOT NULL,
+             GENRE     TEXT           )''')
+print("Table1 successfully")
+
+conn.execute('''Create Table Title
+              (TITLEID INT   PRIMARY KEY  NOT NULL,
+               TITLE    TEXT               NOT NULL,
+               ISBN     VARCHAR                NOT NULL,
+               PUBLISHERID INT            NOT NULL,
+               PUBLICATIONYEAR INT        NOT NULL)''')
+print("Table2 successfully")
+
+conn.execute('''Create Table Publishers
+               (PUBLISHERID INT  PRIMARY KEY          NOT NULL,
+                NAME          TEXT          NOT NULL,
+                STREETADDRESS VARCHAR         NOT NULL,
+                ZIPCODEID    INT           NOT NULL)''')
+print("Table3 successfully")
+
+
+conn.execute('''Create Table ZipCode
+              (ZIPCODEID  INT  PRIMARY KEY             NOT NULL,
+               CITY         TEXT             NOT NULL,
+               STATE        TEXT             NOT NULL,
+               ZIPCODE     INT              NOT NULL)''')
+print("Tabnle4 successfully")
+
+
+conn.execute(''' Create Table Authortitles
+               (AUTHORTITLESID  TEXT  PRIMARY KEY  NOT NULL,
+                AUTHORID          INT            NOT NULL,
+                TITLEID           INT            NOT NULL)''')
+print("table5 successfully")
+
+conn.execute(''' Create Table Authors
+              (AUTHORID   INT   PRIMARY KEY   NOT NULL,
+               FIRSTNAME          TEXT NOT NULL,
+               MIDDLENAME TEXT       NOT NULL,
+               LASTNAME   TEXT       NOT NULL)''')
+print("table created successfully")
+conn.close()
+
+#QUES2
+import sqlite3
+
+conn = sqlite3.connect('hello0.db')
+print("opened database successfully")
+
+conn.execute("INSERT INTO Book(BookID,TITLEID,LOCATION, GENRE) VALUES(2333,4,'SECTOR34','FICTION')")
+conn.execute("INSERT INTO Title(TITLEID,TITLE, ISBN,PUBLISHERID, PUBLICATIONYEAR) VALUES(12,'HELLO',1234,67,2001)")
+conn.execute("INSERT INTO Publishers(PUBLISHERID,NAME, STREETADDRESS, ZIPCODEID) VALUES(333,'SHIVI','HPOTU h/no-82/3', 77)")
+conn.execute("INSERT INTO ZipCode(ZIPCODEID,CITY,STATE,ZIPCODE) VALUES(2233,'AMBALA','HARYANA',5656)")
+conn.execute("INSERT INTO Authortitles(AUTHORTITLESID,AUTHORID ,TITLEID) VALUES(1111,2222,4343)")
+conn.execute("INSERT INTO Authors(AUTHORID,FIRSTNAME ,MIDDLENAME, LASTNAME) VALUES(23223,'SHIVANGI','SHIVI','CHAUHAN')")
+conn.commit()
+print("Table created successfully")
+conn.close()
+
+#QUES3
+
+import sqlite3
+
+conn = sqlite3.connect('hello0.db')
+print("opened database successfully")
+
+cursor= conn.execute("SELECT BookID,  TITLEID, LOCATION, GENRE FROM Book")
+for row in cursor:
+    print("BookID=",row [0])
+    print("TITLEID=", row[1])
+    print("LOCATION=", row[2])
+    print("GENRE=", row[3])
+print("successfully")
+
+cursor1= conn.execute("SELECT TITLEID, TITLE, ISBN, PUBLISHERID, PUBLICATIONYEAR FROM Title")
+for row in cursor1 :
+    print("TITLEID=",row [0])
+    print("TITLE=", row[1])
+    print("ISBN=", row[2])
+    print("PUBLISHERID=", row[3])
+    print("PUBLISHERYEAR=",row[4])
+print("successfully")
+
+cursor2= conn.execute("SELECT PUBLISHERID,NAME,STREETADDRESS, ZIPCODEID FROM Publishers")
+for row in cursor2:
+    print("PUBLISHERID=",row [0])
+    print("NAME=", row[1])
+    print("STREETADDRESS=", row[2])
+    print("ZIPCODEID=", row[3])
+print("successfully")
+
+cursor3= conn.execute("SELECT ZIPCODEID,CITY,STATE,ZIPCODE FROM Zipcode")
+for row in cursor3:
+    print("ZIPCODEID=",row [0])
+    print("CITY=", row[1])
+    print("STATE=", row[2])
+    print("ZIPCODE=", row[3])
+print("successfully")
+
+cursor4= conn.execute("SELECT AUTHORTITLESID, AUTHORID, TITLEID FROM Authortitles")
+for row in cursor4:
+    print("AUTHORTITLESID=",row [0])
+    print("AUTHORID=", row[1])
+    print("TITLEID=", row[2])
+print("successfully")
+
+cursor5= conn.execute("SELECT AUTHORID,FIRSTNAME,MIDDLENAME,LASTNAME FROM Authors")
+for row in cursor5:
+    print("AUTHORID=",row [0])
+    print("FIRSTNAME=", row[1])
+    print("MIDDLENAME=", row[2])
+    print("LASTNAME=", row[3])
+print("successfully")
+
+cursor=conn.execute("SELECT BookID,TITLEID,LOCATION,GENRE from Book")
+for row in cursor:
+    print("BookID=", row[0])
+    print("TITLEID=", row[1])
+    print("LOCATION=", row[2])
+    print("GENRE=", row[3])
+print("successfully")
+
+conn.execute("UPDATE Book set TITLEID=6 where LOCATION='SECTOR34'")
+conn.commit()
+print("total number of rows updated", conn.total_changes)
+
+cursor=conn.execute("SELECT BookID,TITLEID,LOCATION,GENRE from Book")
+for row in cursor :
+    print("BookID=", row[0])
+    print("TITLEID=", row[1])
+    print("LOCATION=", row[2])
+    print("GENRE=", row[3])
+print("successfully")
+conn.close()
+
+
+
+
+
+
+
+
+
+
